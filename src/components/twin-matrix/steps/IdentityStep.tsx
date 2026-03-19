@@ -89,9 +89,10 @@ export const IdentityStep = ({ data, onUpdate, onNext }: Props) => {
 
   const toggle = (key: string) => setOpenKey(prev => (prev === key ? null : key));
   const answered = (key: keyof UserProfile) => !!profile[key];
-  const getOptionLabel = (field: (typeof FIELDS)[number], value: string) => {
-    const matched = field.options.find((option) => option.value === value);
-    return matched ? t(matched.key) : value;
+  const getOptionLabel = (field: (typeof FIELDS)[number], value: unknown) => {
+    const strVal = String(value ?? '');
+    const matched = field.options.find((option) => option.value === strVal);
+    return matched ? t(matched.key) : strVal;
   };
 
   const rows: typeof FIELDS[] = [];
