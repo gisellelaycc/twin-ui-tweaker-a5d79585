@@ -4,6 +4,10 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { WagmiProvider } from "wagmi";
+import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import "@rainbow-me/rainbowkit/styles.css";
+import { wagmiConfig } from "./lib/wallet/config";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { TwinMatrixProvider } from "./contexts/TwinMatrixContext";
 import HomePage from "./pages/HomePage";
@@ -52,34 +56,38 @@ class AppErrorBoundary extends Component<
 }
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <AppErrorBoundary>
-        <ThemeProvider>
-          <TwinMatrixProvider>
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/verify" element={<VerifyPage />} />
-                <Route path="/mint" element={<MintPage />} />
-                <Route path="/matrix" element={<MatrixPage />} />
-                <Route path="/agents" element={<AgentsOverviewPage />} />
-                <Route path="/agents/connect" element={<AgentsConnectPage />} />
-                <Route path="/agents/skill" element={<AgentsSkillPage />} />
-                <Route path="/agents/api" element={<AgentsApiPage />} />
-                <Route path="/agents/examples" element={<AgentsExamplesPage />} />
-                <Route path="/agents/console" element={<AgentsConsolePage />} />
-                <Route path="/soul" element={<SoulWizardPage />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </TwinMatrixProvider>
-        </ThemeProvider>
-      </AppErrorBoundary>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <WagmiProvider config={wagmiConfig}>
+    <QueryClientProvider client={queryClient}>
+      <RainbowKitProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <AppErrorBoundary>
+            <ThemeProvider>
+              <TwinMatrixProvider>
+                <BrowserRouter>
+                  <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/verify" element={<VerifyPage />} />
+                    <Route path="/mint" element={<MintPage />} />
+                    <Route path="/matrix" element={<MatrixPage />} />
+                    <Route path="/agents" element={<AgentsOverviewPage />} />
+                    <Route path="/agents/connect" element={<AgentsConnectPage />} />
+                    <Route path="/agents/skill" element={<AgentsSkillPage />} />
+                    <Route path="/agents/api" element={<AgentsApiPage />} />
+                    <Route path="/agents/examples" element={<AgentsExamplesPage />} />
+                    <Route path="/agents/console" element={<AgentsConsolePage />} />
+                    <Route path="/soul" element={<SoulWizardPage />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </BrowserRouter>
+              </TwinMatrixProvider>
+            </ThemeProvider>
+          </AppErrorBoundary>
+        </TooltipProvider>
+      </RainbowKitProvider>
+    </QueryClientProvider>
+  </WagmiProvider>
 );
 
 export default App;
