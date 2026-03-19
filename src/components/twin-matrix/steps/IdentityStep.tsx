@@ -80,10 +80,11 @@ export const IdentityStep = ({ data, onUpdate, onNext }: Props) => {
   const [openKey, setOpenKey] = useState<string | null>(null);
 
   const update = (key: keyof UserProfile, val: string) => {
-    const next = { ...profile, [key]: val === profile[key] ? '' : val };
+    const current = String(profile[key] ?? '');
+    const next = { ...profile, [key]: val === current ? '' : val };
     setProfile(next);
     onUpdate(next);
-    if (val !== profile[key]) setOpenKey(null);
+    if (val !== current) setOpenKey(null);
   };
 
   const toggle = (key: string) => setOpenKey(prev => (prev === key ? null : key));
