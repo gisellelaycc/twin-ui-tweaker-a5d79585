@@ -241,7 +241,7 @@ export function decodeMatrixToSignature(matrix: readonly Hex[]): number[] {
 
 export function isTokenNotFoundError(error: unknown): boolean {
   if (error instanceof BaseError) {
-    const reverted = error.walk((item) => item instanceof ContractFunctionRevertedError) as
+    const reverted = (error as any).walk?.((item: unknown) => item instanceof ContractFunctionRevertedError) as
       | ContractFunctionRevertedError
       | undefined;
     if (reverted?.data?.errorName === 'TokenNotFound') return true;
