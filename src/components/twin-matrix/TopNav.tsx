@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import twin3Logo from "@/assets/twin3-logo.svg";
 
-const TopNav = () => (
+export const TopNav = () => (
   <nav className="sticky top-0 z-50 border-b border-border/40 bg-background/75 backdrop-blur-md">
     <div className="container mx-auto flex h-16 items-center justify-between px-4">
       <Link to="/" className="flex items-center gap-2">
