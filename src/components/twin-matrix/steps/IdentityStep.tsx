@@ -87,7 +87,7 @@ export const IdentityStep = ({ data, onUpdate, onNext }: Props) => {
     if (val !== current) setOpenKey(null);
   };
 
-  const toggle = (key: string) => setOpenKey(prev => (prev === key ? null : key));
+  const toggle = (key: string | number) => setOpenKey(prev => (prev === String(key) ? null : String(key)));
   const answered = (key: keyof UserProfile) => !!profile[key];
   const getOptionLabel = (field: (typeof FIELDS)[number], value: unknown) => {
     const strVal = String(value ?? '');
